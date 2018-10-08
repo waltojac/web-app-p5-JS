@@ -14,7 +14,7 @@
   </style>
 </head>
 <body>
-<h1>MoviePlus Rental Stores</h1>
+<h1>MoviePlus Rental</h1>
 
 <?php
 require_once '.secret.php';
