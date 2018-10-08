@@ -4,7 +4,7 @@
     tr:nth-child(odd) {
         background-color: lavender;
     }
-	tr:nth-child(0) {
+	tr:nth-child(1) {
 		background-color: black;
 		color: white;
 	}
