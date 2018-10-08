@@ -2,7 +2,7 @@
 <head>
   <style>
     tr:nth-child(odd) {
-        background-color: lavender;
+        background-color: wheat;
     }
 	tr:nth-child(1) {
 		background-color: black;
