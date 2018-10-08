@@ -17,8 +17,8 @@ printf('<table> <tr><th>Store</th><th>Manager</th><th>Address</th><th>Country</t
 
 $result = $db->query("SELECT * FROM store");
 while ($row = $result->fetch_assoc()) {
-    $man = $row['manager_staff_id'];
-    $add = $row['address_id'];
+    $man = urlencode($row['manager_staff_id']);
+    $add = urlencode($row['address_id']);
 
     $storeStr = <<<LAKER
   		SELECT first_name, last_name
@@ -38,7 +38,7 @@ LAKER;
     $address = $db->query($addressStr);
 	$addressRow = $address->fetch_assoc();
 	
-	$cit = $addressRow['city_id'];
+	$cit = urlencode($addressRow['city_id']);
 
     $cityStr = <<<LAKER
 			SELECT *
@@ -49,7 +49,7 @@ LAKER;
     $city = $db->query($cityStr);
 	$cityRow = $city->fetch_assoc();
 	
-	$countr = $cityRow['country_id'];
+	$countr = urlencode($cityRow['country_id']);
 
 	$countryStr = <<<LAKER
 			SELECT *
