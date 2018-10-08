@@ -1,6 +1,10 @@
 <html>
 <head>
   <style>
+    table {
+        border-collapse:collapse;
+        border-spacing:0;
+    }
     tr:nth-child(odd) {
         background-color: wheat;
     }
@@ -23,7 +27,6 @@ $db = new mysqli('cis.gvsu.edu', // hostname of db server
     $mysqluser, // your userid
     $mysqlpassword, // your password
     $mydbname);
-
 
 $custId = urldecode($_GET['id']);
 $custName = urldecode($_GET['name']);
@@ -48,7 +51,6 @@ while ($row = $result->fetch_assoc()) {
     printf('<tr><td>%d</td><td>%s</td><td>%s</td><td>%s</td></tr>', $i++, $filmNameRow['title'], $row['rental_date'], $row['return_date']);
 }
 printf('</table>');
-
 
 ?>
 </body>
