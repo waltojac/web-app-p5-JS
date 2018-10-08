@@ -36,7 +36,11 @@ $i = 1;
 $result = $db->query("SELECT * FROM customer where store_id = $store order by last_name");
 while ($row = $result->fetch_assoc()) {
     printf('<tr><td>%d %s %s</td><td>%s</td><td><a href="history.php?id=%s&name=%s">View</a></td><td><a href="new.php?id=%s&name=%s">Rent</a></td></tr>',
+<<<<<<< HEAD
     $i++, $row['first_name'], $row['last_name'], $row['email'], $row['customer_id'], $row['first_name']." ".$row['last_name'], $row['customer_id'], $row['first_name']." ".$row['last_name']);
+=======
+    $i++, $row['first_name'], $row['last_name'], $row['email'], $row['customer_id'], $row['first_name'] + " " + $row['last_name'], $row['customer_id'], $row['first_name'] + " " + $row['last_name']);
+>>>>>>> df4bf19c58a7a2a65f4dc2ce7d6a8245f5e0efa9
 }
 
 ?>
