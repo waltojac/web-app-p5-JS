@@ -46,7 +46,7 @@ LAKER;
 		   	WHERE  city_id = $cit
 LAKER;
 
-    $city = $db->query($addressStr);
+    $city = $db->query($cityStr);
 	$cityRow = $city->fetch_assoc();
 	
 	$countr = $cityRow['country_id'];
@@ -59,7 +59,6 @@ LAKER;
 
     $country = $db->query($countryStr);
     $countryRow = $country->fetch_assoc();
-
 
     printf('<tr><td>%s</td><td>%s %s</td><td>%s, %s</td><td>%s</td></tr>',
         $row['store_id'], $storeRow['first_name'], $storeRow['last_name'], $addressRow['address'], $cityRow['city'], $countryRow['country']);
