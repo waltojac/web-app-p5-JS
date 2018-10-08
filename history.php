@@ -45,7 +45,7 @@ while ($row = $result->fetch_assoc()) {
     $filmName = $db->query("SELECT * FROM film where film_id = $fId");
     $filmNameRow = $filmName->fetch_assoc();
 
-    printf('<tr><td>%d %s</td><td>%s</td><td>%s</td></tr>', $i++, $filmNameRow['title'], $row['rental_date'], $row['return_date']);
+    printf('<tr><td>%d&emsp%s</td><td>%s</td><td>%s</td></tr>', $i++, $filmNameRow['title'], $row['rental_date'], $row['return_date']);
 }
 printf('</table>');
 
