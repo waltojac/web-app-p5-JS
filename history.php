@@ -11,8 +11,8 @@
     tr:nth-child(even) {
         background-color: palegreen;
     }
-    td {
-        padding-left:5em
+    td, th {
+        padding-left:1em
     }
   </style>
 </head>
