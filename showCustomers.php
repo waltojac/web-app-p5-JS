@@ -5,7 +5,7 @@
 <p>Customers:</p>
 <?php
 $store = urldecode($_GET['storeId']);
-
+printf('<p>Store ID: %s</p>', $store);
 
 ?>
 </body>
