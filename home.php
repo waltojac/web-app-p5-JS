@@ -74,8 +74,8 @@ LAKER;
     $country = $db->query($countryStr);
     $countryRow = $country->fetch_assoc();
 
-    printf('<tr><td><a href="showCustomers.php?storeId=%s">%s</a></td><td>%s %s</td><td>%s, %s</td><td>%s</td></tr>',
-	$row['store_id'], $row['store_id'], $storeRow['first_name'], $storeRow['last_name'], $addressRow['address'], $cityRow['city'], $countryRow['country']);
+    printf('<tr><td><a href="showCustomers.php?storeId=%s$addr=%s">%s</a></td><td>%s %s</td><td>%s, %s</td><td>%s</td></tr>',
+	$row['store_id'], $addressRow['address'], $row['store_id'], $storeRow['first_name'], $storeRow['last_name'], $addressRow['address'], $cityRow['city'], $countryRow['country']);
 }
 printf('</table>');
 ?>
