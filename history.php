@@ -37,13 +37,15 @@ $result = $db->query("SELECT * FROM rental where customer_id = $custId order by 
 while ($row = $result->fetch_assoc()) {
     $inv = urlencode($row['inventory_id']);
 
-    $film = $db->query("SELECT film_id FROM inventory where inventory_id = $inv");
+    $film = $db->query("SELECT * FROM inventory where inventory_id = $inv");
+    $filmRow = $film->fetch_assoc();
 
-    $fId = urlencode($film['film_id']);
+    $fId = urlencode($filmRow['film_id']);
 
-    $filmName = $db->query("SELECT title FROM film where film_id = $fId");
+    $filmName = $db->query("SELECT * FROM film where film_id = $fId");
+    $filmNameRow = $filmName->fetch_assoc();
 
-    printf('<tr><td>%d %s</td><td>%s</td><td>%s</td></tr>', $i++, $filmName['title'], $row['rental_date'], $row['return_date']);
+    printf('<tr><td>%d %s</td><td>%s</td><td>%s</td></tr>', $i++, $filmNameRow['title'], $row['rental_date'], $row['return_date']);
 }
 printf('</table>');
 
