@@ -32,6 +32,9 @@ printf('<h3>New Rental for customer %s</h3>', $custName);
 printf('<table> <tr><th>Name</th><th>Email</th><th>Rental History</th><th>New Rental</th></tr>');
 
 
+printf('</table>');
+
+
 ?>
 </body>
 </html>

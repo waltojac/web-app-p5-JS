@@ -38,6 +38,7 @@ while ($row = $result->fetch_assoc()) {
     printf('<tr><td>%d %s %s</td><td>%s</td><td><a href="history.php?id=%s&name=%s">View</a></td><td><a href="new.php?id=%s&name=%s">Rent</a></td></tr>',
     $i++, $row['first_name'], $row['last_name'], $row['email'], $row['customer_id'], $row['first_name']." ".$row['last_name'], $row['customer_id'], $row['first_name']." ".$row['last_name']);
 }
+printf('</table>');
 
 ?>
 </body>
