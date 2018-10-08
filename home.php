@@ -1,8 +1,8 @@
 <html>
 <body>
-<h1>PHP Demo</h1>
+<h1>MoviePlus Rental Stores</h1>
 
-<p>All tables..</p>
+<p>Select a store below:</p>
 <?php
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
