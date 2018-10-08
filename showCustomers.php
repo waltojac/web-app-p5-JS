@@ -40,6 +40,13 @@ while ($row = $result->fetch_assoc()) {
 
 }
 
+$result = $db->query("SELECT * FROM customer");
+while ($row = $result->fetch_assoc()) {
+    printf('<tr><td>%s %s</td><td>%s</td><td><a href="history.php">History</a></td><td><a href="new.php">New</a></td></tr>',
+    $row['first_name'], $row['last_name'], $row['email']);
+
+}
+
 ?>
 </body>
 </html>
