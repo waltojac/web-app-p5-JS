@@ -6,7 +6,6 @@
     }
     tr:nth-child(even) {
         background-color: palegreen;
-        color: white;
     }
   </style>
 </head>
