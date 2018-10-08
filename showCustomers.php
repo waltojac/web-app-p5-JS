@@ -33,7 +33,7 @@ $city = urldecode($_GET['cit']);
 printf('<h3>List of Customers at Store %s, %s</h3>', $address, $city);
 printf('<table> <tr><th>Name</th><th>Email</th><th>Rental History</th><th>New Rental</th></tr>');
 $i = 1;
-$result = $db->query("SELECT * FROM customer where store_id = $store");
+$result = $db->query("SELECT * FROM customer where store_id = $store order by last_name");
 while ($row = $result->fetch_assoc()) {
     printf('<tr><td>%d   %s %s</td><td>%s</td><td><a href="history.php">History</a></td><td><a href="new.php">New</a></td></tr>',
     $i++, $row['first_name'], $row['last_name'], $row['email']);
