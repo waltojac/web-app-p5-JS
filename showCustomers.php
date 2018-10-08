@@ -6,6 +6,7 @@
 $store = urldecode($_GET['storeId']);
 $address = urldecode($_GET['addr']);
 
+
 printf('<h2>List of Customers at Store %s</h2>', $address);
 
 
