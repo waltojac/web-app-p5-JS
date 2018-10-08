@@ -5,9 +5,10 @@
 <?php
 $store = urldecode($_GET['storeId']);
 $address = urldecode($_GET['addr']);
+$city = urldecode($_GET['cit']);
 
 
-printf('<h2>List of Customers at Store %s</h2>', $address);
+printf('<h2>List of Customers at Store %s, %s</h2>', $address, $city);
 
 
 ?>
