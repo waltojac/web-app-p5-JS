@@ -5,7 +5,7 @@
         background-color: lavender;
     }
     tr:nth-child(even) {
-        background-color: blue;
+        background-color: palegreen];
         color: white;
     }
   </style>
