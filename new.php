@@ -22,8 +22,11 @@ $db = new mysqli('cis.gvsu.edu', // hostname of db server
 $custId = urldecode($_GET['id']);
 $custName = urldecode($_GET['name']);
 
-putenv("ID=$id");
-putenv("NAME=$name");
+if (isset($custId) && isset($custName)){
+    putenv("ID=$custId");
+    putenv("NAME=$custName");
+}
+
 
 
 printf('<h3>New Rental for Customer %s</h3>', getenv('NAME'));
