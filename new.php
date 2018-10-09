@@ -46,6 +46,7 @@ LAKER;
     $i = 1;
     $result = $db->query($rentalStr);
     while ($row = $result->fetch_assoc()) {
+        printf('<p>here</p>');
         printf('<tr><td>%d</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td></tr>',
         $i++, $row['title'], $row['rating'], $row['length'], $row['length'], $row['length']
     );
