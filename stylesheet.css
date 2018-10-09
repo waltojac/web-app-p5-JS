@@ -1,6 +1,9 @@
 table {
     /*border-collapse: collapse;
      width: 50%; */
+    border-collapse: separate;
+    border-style: solid;
+    border-width:thin;
     border-spacing: 10px 0;
 }
 tr:nth-child(odd) {
