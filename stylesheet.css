@@ -14,5 +14,5 @@ tr:nth-child(even) {
 }
 
 td {
-    align-content: center;
+    text-align: center;
 }
