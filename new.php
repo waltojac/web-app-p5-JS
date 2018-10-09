@@ -34,7 +34,7 @@ printf('<table> <tr><th></th><th>Title</th><th>Rating</th><th>Duration</th><th>A
 
 if (isset($_GET['doSearch']) && !empty($_GET['tname'])) {
     $titleName = urldecode($_GET['tname']);
-    printf('<p>Title: %s</p>', $titleName);
+    /*printf('<p>Title: %s</p>', $titleName);*/
     $custId = urlencode($_SESSION['cId']);
     $fTitle = urldecode($_GET['tname']);
 
@@ -47,7 +47,7 @@ LAKER;
     $result = $db->query($rentalStr);
     while ($row = $result->fetch_assoc()) {
         printf('<tr><td>%d</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td>',
-        $i++, $row['title'], $row['rating'], $row['length']
+        $i++, $row['title'], $row['rating'], $row['length'], $row['length'], $row['length']
     );
     }
 } else {
