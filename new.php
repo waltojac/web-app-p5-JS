@@ -36,7 +36,7 @@ $custName = urldecode($_GET['name']);
 printf('<h3>New Rental for Customer %s</h3>', $custName);
 printf('<table> <tr><th>Title</th><th>Rating</th><th>Duration</th><th>Actors</th><th>Available Inventory</th></tr>');
 
-if (isset($_GET['doSearch']) && isset($_GET['tname'])) {
+if (isset($_GET['doSearch']) && !empty($_GET['tname'])) {
     $titleName = urldecode($_GET['tname']);
     printf('<p>Title: %s</p>', $titleName);
     $i = 1;
