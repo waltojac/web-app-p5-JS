@@ -45,7 +45,7 @@ if (isset($_GET['doSearch'])) {
         printf('<tr><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td>');
     }
 } else {
-    printf('<tr><td>Nothing to Display.</td></tr>');
+    printf('<tr>Nothing to Display.</tr>');
 }
 
 printf('</table>');
