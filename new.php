@@ -46,7 +46,6 @@ LAKER;
     $result = $db->query($rentalStr);
     while ($row = $result->fetch_assoc()) {
         $fid = $row['film_id'];
-        printf("<p>%s</p>", $fid);
 
         $filmStr = <<<LAKER
         SELECT * FROM inventory 
@@ -62,9 +61,16 @@ LAKER;
         }
         
 
-        printf('<tr><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td></tr>',
-        $row['title'], $row['rating'], $row['length'], $row['length'], $row['length']
-    );
+        printf('<tr><td>%s</td><td>%s</td><td>%s</td><td>%s</td>',
+        $row['title'], $row['rating'], $row['length'], $row['length']);
+
+
+        printf('<td>');
+
+        foreach($invArray as $i){
+            printf('%s ', $i);
+        }
+        printf('</td></tr>');
     }
 } else {
     printf('<tr><td colspan="6" align="center">Nothing to Display.</td></tr>');
