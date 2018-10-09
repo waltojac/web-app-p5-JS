@@ -1,21 +1,6 @@
 <html>
 <head>
-  <style>
-    table {
-        border-collapse: collapse;
-        width: 70%;
-    }
-    tr:nth-child(odd) {
-        background-color: wheat;
-    }
-	tr:nth-child(1) {
-		background-color: black;
-		color: white;
-	}
-    tr:nth-child(even) {
-        background-color: palegreen;
-    }
-  </style>
+    <link rel="stylesheet" href="stylesheet.css">
 </head>
 <body>
 <h1>MoviePlus Rental</h1>
