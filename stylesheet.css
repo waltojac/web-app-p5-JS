@@ -1,7 +1,7 @@
 table {
     border-collapse: collapse;
     /* width: 50%; */
-    table-layout: auto !important;
+    table-layout: auto;
 }
 tr:nth-child(odd) {
     background-color: wheat;
