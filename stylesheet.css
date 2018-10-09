@@ -1,6 +1,6 @@
 table {
     border-collapse: collapse;
-    width: 70%;
+    width: 50%;
 }
 tr:nth-child(odd) {
     background-color: wheat;
