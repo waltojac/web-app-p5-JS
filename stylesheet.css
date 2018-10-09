@@ -14,9 +14,9 @@ tr:nth-child(even) {
     background-color: palegreen;
     border-color: palegreen;
 }
-table.left td {
+/*table.left td {
     text-align: left;
 }
 td {
     text-align: center;
-}
+}*/
