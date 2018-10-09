@@ -34,16 +34,18 @@ $custId = urldecode($_GET['id']);
 $custName = urldecode($_GET['name']);
 
 printf('<h3>New Rental for Customer %s</h3>', $custName);
-printf('<table> <tr><th>Title/th><th>Rating</th><th>Duration</th><th>Actors</th><th>Available Inventory</th></tr>');
+printf('<table> <tr><th>Title</th><th>Rating</th><th>Duration</th><th>Actors</th><th>Available Inventory</th></tr>');
 
 if (isset($_GET['doSearch'])) {
     $titleName = urldecode($_GET['tname']);
     printf('<p>Title: %s</p>', $titleName);
-} 
-$i = 1;
-$result = $db->query("SELECT * FROM rental where customer_id = $custId order by return_date");
-while ($row = $result->fetch_assoc()) {
-    printf('<tr><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td>');
+    $i = 1;
+    $result = $db->query("SELECT * FROM rental where customer_id = $custId order by return_date");
+    while ($row = $result->fetch_assoc()) {
+        printf('<tr><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td>');
+    }
+} else {
+    printf('<tr><td>Nothing to Display.</td></tr>');
 }
 
 printf('</table>');
