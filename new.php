@@ -57,7 +57,7 @@ LAKER;
         }
 
         foreach($invArray as $i){
-            print_r($i);
+            print_r($i."");
         }
         
 
