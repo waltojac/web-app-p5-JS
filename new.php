@@ -22,7 +22,7 @@ $db = new mysqli('cis.gvsu.edu', // hostname of db server
 $custId = urldecode($_GET['id']);
 $custName = urldecode($_GET['name']);
 
-if (isset($custId) && isset($custName)){
+if (!empty($custId) && !empty($custName)){
     putenv("ID=$custId");
     putenv("NAME=$custName");
 }
