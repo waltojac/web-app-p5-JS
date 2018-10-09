@@ -40,7 +40,7 @@ if (isset($_GET['doSearch']) && !empty($_GET['tname'])) {
 
     $rentalStr = <<<LAKER
     SELECT * FROM film 
-    WHERE title = $fTitle
+    WHERE title LIKE $fTitle
 LAKER;
 
     $i = 1;
@@ -51,7 +51,7 @@ LAKER;
     );
     }
 } else {
-    printf('<tr><td colspan="5" align="center">Nothing to Display.</td></tr>');
+    printf('<tr><td colspan="6" align="center">Nothing to Display.</td></tr>');
 }
 
 printf('</table>');
