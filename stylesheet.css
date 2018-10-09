@@ -17,3 +17,7 @@ tr:nth-child(even) {
 td {
     text-align: center;
 }
+
+th {
+    border-width: 2em;
+}
