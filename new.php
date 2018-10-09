@@ -19,6 +19,7 @@ $custName = urldecode($_GET['name']);
 if (!empty($custId) && !empty($custName)){
     session_start();
     $_SESSION['cName'] = "$custName";
+    $_SESSION['cId'] = "$custId";
 }
 ?>
 <form action="" method=:"GET">
@@ -29,15 +30,25 @@ Search for Movie Title:
 <?php
 session_start();
 printf('<h3>New Rental for Customer %s</h3>', $_SESSION['cName']);
-printf('<table> <tr><th>Title</th><th>Rating</th><th>Duration</th><th>Actors</th><th>Available Inventory</th></tr>');
+printf('<table> <tr><th></th><th>Title</th><th>Rating</th><th>Duration</th><th>Actors</th><th>Available Inventory</th></tr>');
 
 if (isset($_GET['doSearch']) && !empty($_GET['tname'])) {
     $titleName = urldecode($_GET['tname']);
     printf('<p>Title: %s</p>', $titleName);
+    $custId = urlencode($_SESSION['cId']);
+    $fTitle = urldecode($_GET['tname']);
+
+    $rentalStr = <<<LAKER
+    SELECT * FROM film 
+    WHERE title = $fTitle
+LAKER;
+
     $i = 1;
-    $result = $db->query("SELECT * FROM rental where customer_id = $custId order by return_date");
+    $result = $db->query($rentalStr);
     while ($row = $result->fetch_assoc()) {
-        printf('<tr><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td>');
+        printf('<tr><td>%d</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td>',
+        $row['title'], $row['rating'], $row['length']
+    );
     }
 } else {
     printf('<tr><td colspan="5" align="center">Nothing to Display.</td></tr>');
