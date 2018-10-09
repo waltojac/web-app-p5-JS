@@ -46,6 +46,7 @@ LAKER;
     $result = $db->query($rentalStr);
     while ($row = $result->fetch_assoc()) {
         $fid = $row['film_id'];
+        printf("<p>%s</p>", $fid);
 
         $filmStr = <<<LAKER
         SELECT * FROM inventory 
