@@ -5,14 +5,6 @@
 <body>
 <h1>MoviePlus Rental</h1>
 <?php
-require_once '.secret.php';
-
-$db = new mysqli('cis.gvsu.edu', // hostname of db server
-    $mysqluser, // your userid
-    $mysqlpassword, // your password
-    $mydbname);
-
-
 $custId = urldecode($_GET['id']);
 $custName = urldecode($_GET['name']);
 
@@ -28,6 +20,13 @@ Search for Movie Title:
     <input type="submit" name="doSearch" value="Search">
 </form>
 <?php
+require_once '.secret.php';
+
+$db = new mysqli('cis.gvsu.edu', // hostname of db server
+    $mysqluser, // your userid
+    $mysqlpassword, // your password
+    $mydbname);
+
 session_start();
 printf('<h3>New Rental for Customer %s</h3>', $_SESSION['cName']);
 printf('<table> <tr><th></th><th>Title</th><th>Rating</th><th>Duration</th><th>Actors</th><th>Available Inventory</th></tr>');
