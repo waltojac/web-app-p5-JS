@@ -12,3 +12,7 @@ tr:nth-child(1) {
 tr:nth-child(even) {
     background-color: palegreen;
 }
+
+td {
+    align-content: center;
+}
