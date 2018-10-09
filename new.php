@@ -22,7 +22,11 @@ $db = new mysqli('cis.gvsu.edu', // hostname of db server
 $custId = urldecode($_GET['id']);
 $custName = urldecode($_GET['name']);
 
-printf('<h3>New Rental for Customer %s</h3>', $custName);
+putenv("ID=$id");
+putenv("NAME=$name");
+
+
+printf('<h3>New Rental for Customer %s</h3>', getenv("NAME"));
 printf('<table> <tr><th>Title</th><th>Rating</th><th>Duration</th><th>Actors</th><th>Available Inventory</th></tr>');
 
 if (isset($_GET['doSearch']) && !empty($_GET['tname'])) {
