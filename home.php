@@ -16,7 +16,7 @@ $db = new mysqli('cis.gvsu.edu', // hostname of db server
     $mysqlpassword, // your password
     $mydbname);
 
-printf('<table> <tr><th>Store</th><th>Manager</th><th>Address</th><th>Country</th></tr>');
+printf('<table class="customers"> <tr><th>Store</th><th>Manager</th><th>Address</th><th>Country</th></tr>');
 
 $result = $db->query("SELECT * FROM store");
 while ($row = $result->fetch_assoc()) {

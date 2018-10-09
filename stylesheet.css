@@ -14,11 +14,9 @@ tr:nth-child(1) {
 tr:nth-child(even) {
     background-color: palegreen;
 }
-
+.customers td {
+    text-align: left;
+}
 td {
     text-align: center;
-}
-
-th {
-    
 }
