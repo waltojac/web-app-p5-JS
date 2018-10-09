@@ -2,7 +2,11 @@
 <head>
   <style>
     table {
-        border-collapse:collapse;
+        border-collapse: collapse;
+        width: 70%;
+    }
+    tr {
+        
     }
     tr:nth-child(odd) {
         background-color: wheat;
