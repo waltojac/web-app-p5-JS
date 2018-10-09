@@ -40,7 +40,7 @@ if (isset($_GET['doSearch']) && !empty($_GET['tname'])) {
 
     $rentalStr = <<<LAKER
     SELECT * FROM film 
-    WHERE title LIKE $fTitle
+    WHERE film.title LIKE $fTitle
 LAKER;
 
     $i = 1;
