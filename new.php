@@ -17,8 +17,8 @@ $custId = urldecode($_GET['id']);
 $custName = urldecode($_GET['name']);
 
 if (!empty($custId) && !empty($custName)){
-    putenv("ID=$custId");
-    putenv("NAME=$custName");
+    session_start();
+    $_SESSION['cName'] = "$custName";
 }
 ?>
 <form action="" method=:"GET">
@@ -27,8 +27,8 @@ Search for Movie Title:
     <input type="submit" name="doSearch" value="Search">
 </form>
 <?php
-
-printf('<h3>New Rental for Customer %s</h3>', getenv('NAME'));
+session_start();
+printf('<h3>New Rental for Customer %s</h3>', $_SESSION['cName']);
 printf('<table> <tr><th>Title</th><th>Rating</th><th>Duration</th><th>Actors</th><th>Available Inventory</th></tr>');
 
 if (isset($_GET['doSearch']) && !empty($_GET['tname'])) {
