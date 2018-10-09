@@ -16,6 +16,11 @@
 <body>
 <h1>MoviePlus Rental</h1>
 
+<form action="" method=:"GET">
+Search for Movie Title:
+    <input type="____" name="tname">
+    <input type="submit" name="doSearch" value="Search">
+</form>
 <?php
 require_once '.secret.php';
 
@@ -28,9 +33,18 @@ $db = new mysqli('cis.gvsu.edu', // hostname of db server
 $custId = urldecode($_GET['id']);
 $custName = urldecode($_GET['name']);
 
-printf('<h3>New Rental for customer %s</h3>', $custName);
-printf('<table> <tr><th>Name</th><th>Email</th><th>Rental History</th><th>New Rental</th></tr>');
+printf('<h3>New Rental for Customer %s</h3>', $custName);
+printf('<table> <tr><th>Title/th><th>Rating</th><th>Duration</th><th>Actors</th><th>Available Inventory</th></tr>');
 
+if (isset($_GET['doSearch'])) {
+    $titleName = urldecode($_GET['tname']);
+    printf('<p>Title: %s</p>', $titleName);
+} 
+$i = 1;
+$result = $db->query("SELECT * FROM rental where customer_id = $custId order by return_date");
+while ($row = $result->fetch_assoc()) {
+    printf('<tr><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td>');
+}
 
 printf('</table>');
 
