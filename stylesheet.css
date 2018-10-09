@@ -15,4 +15,5 @@ tr:nth-child(even) {
 
 td {
     text-align: center;
+    padding-left: 1em;
 }
