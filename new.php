@@ -29,7 +29,7 @@ $db = new mysqli('cis.gvsu.edu', // hostname of db server
 
 session_start();
 printf('<h3>New Rental for Customer %s</h3>', $_SESSION['cName']);
-printf('<table> <tr><th></th><th>Title</th><th>Rating</th><th>Duration</th><th>Actors</th><th>Available Inventory</th></tr>');
+printf('<table> <tr><th>Title</th><th>Rating</th><th>Duration</th><th>Actors</th><th>Available Inventory</th></tr>');
 
 if (isset($_GET['doSearch']) && !empty($_GET['tname'])) {
     $titleName = urldecode($_GET['tname']);
@@ -45,8 +45,24 @@ LAKER;
     $i = 1;
     $result = $db->query($rentalStr);
     while ($row = $result->fetch_assoc()) {
-        printf('<tr><td>%d</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td></tr>',
-        $i++, $row['title'], $row['rating'], $row['length'], $row['length'], $row['length']
+        $fid = $row['film_id'];
+
+        $filmStr = <<<LAKER
+        SELECT * FROM inventory 
+        WHERE inventory.film_id =$fid
+LAKER;
+        $inv = $db->query($filmStr);
+        while($invRow = $inv->fetch_assoc()) {
+            $invArray[] = $invRow['inventory_id'];
+        }
+
+        foreach($invArray as $i){
+            print_r($i);
+        }
+        
+
+        printf('<tr><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td></tr>',
+        $row['title'], $row['rating'], $row['length'], $row['length'], $row['length']
     );
     }
 } else {
