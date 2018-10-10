@@ -43,6 +43,7 @@
         VALUES ('$date', '$id', '$custId', '$man')";
         if ($db->query($str) === true){
             printf('<p>Movie Checked-out Successfully.</p>');
+            echo $str;
         }
         else {
             echo "Error: " . $str. "<br>" . $db->error;
