@@ -26,7 +26,7 @@ LAKER;
     if ($db->query($updateStr) === true){
         printf('<p>Movie Checked-in Successfully.</p>');
         $str = $db->query("SELECT * from rental where rental_id=$rid");
-        echo $str;
+        echo $str->fetch_assoc();
         echo $updateStr;
     }
     else {
