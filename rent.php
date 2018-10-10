@@ -17,7 +17,9 @@
     <input type="submit" name="doSearch" value="Confirm">
 </form>
 <?php
-    print_r("Test");
+    if (isset($_GET['doSearch'])){
+        print_r("Test");
+    }
 
 ?>
 </body>
