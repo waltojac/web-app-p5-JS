@@ -47,6 +47,7 @@ $storeStr = <<<LAKER
     ORDER BY c.last_name"
 LAKER;
 
+unset($row);
 $result2 = $db->query($storeStr);
 while ($row = $result2->fetch_assoc()) {
     printf('<tr><td>%d</td><td>%s %s</td><td>%s</td><td><a href="history.php?id=%s&name=%s">View</a></td><td><a href="new.php?id=%s&name=%s">Rent</a></td></tr>',
