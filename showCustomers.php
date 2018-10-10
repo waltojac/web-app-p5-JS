@@ -37,7 +37,7 @@ printf('</table>');
 printf('<h3>List of Customers with NO Outstanding Rentals at Store %s, %s</h3>', $address, $city);
 printf('<table class="left"> <tr class="head"><th></th><th>Name</th><th>Email</th><th>Rental History</th><th>New Rental</th></tr>');
 $i = 1;
-$result2 = $db->query("SELECT * FROM customer c, rental r where c.store_id = $store and c.customer_id = r.customer_id and r.return_date is not null and not in $result2 group by c.customer_id order by c.last_name");
+$result2 = $db->query("SELECT * FROM customer c, rental r where c.store_id = $store and c.customer_id = r.customer_id and r.return_date is not null and not in (SELECT * FROM customer c, rental r where c.store_id = $store and c.customer_id = r.customer_id and r.return_date is null) group by c.customer_id order by c.last_name");
 while ($row = $result2->fetch_assoc()) {
     printf('<tr><td>%d</td><td>%s %s</td><td>%s</td><td><a href="history.php?id=%s&name=%s">View</a></td><td><a href="new.php?id=%s&name=%s">Rent</a></td></tr>',
     $i++, $row['first_name'], $row['last_name'], $row['email'], $row['customer_id'], $row['first_name']." ".$row['last_name'], $row['customer_id'], $row['first_name']." ".$row['last_name']);
