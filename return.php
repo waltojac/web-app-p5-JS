@@ -14,13 +14,13 @@
         $mydbname);
         
     $date = date('Y-m-d H:i:s');
-    $title = urldecode($_GET['title']);
-    $rDate = urldecode($_GET['rDate']);
+    $rid = urldecode($_GET['rid']);
+    
 
     $updateStr = <<<LAKER
-    UPDATE inventory
+    UPDATE rental
     SET return_date = '$date'
-    WHERE rental_date =$rDate
+    WHERE rental_id =$rid
 LAKER;
 
     if ($db->query($updateStr) === true){

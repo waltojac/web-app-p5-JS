@@ -35,7 +35,7 @@ while ($row = $result->fetch_assoc()) {
 
     printf('<tr><td>%d</td><td>%s</td><td>%s</td>', $i++, $filmNameRow['title'], $row['rental_date']);
     if (empty($row['return_date'])){
-        printf('<td align="center"><a href="return.php?title=%s&rDate=%s">Checkin</td></tr>', $filmNameRow['title'], $row['rental_date']);
+        printf('<td align="center"><a href="return.php?rid=%s">Checkin</td></tr>', $row['rental_id']);
     } else {
         printf('<td>%s</td></tr>', $row['return_date']);
     }
