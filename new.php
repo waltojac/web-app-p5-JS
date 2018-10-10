@@ -89,19 +89,19 @@ LAKER;
 
 
         // Print Actor Names
-        printf('<td>');
+        printf('<td><ul>');
         foreach($aktNameArray as $a){
-            printf('%s ', $a);
+            printf('<li>%s</li>', $a);
         }
-        printf('</td>');
+        printf('</ul></td>');
 
         //For inventories
-        printf('<td><ul>');
+        printf('<td>');
 
         foreach($invArray as $i){
-            printf('<li>%s</li>', $i);
+            printf('$s ', $i);
         }
-        printf('</ul></td></tr>');
+        printf('</td></tr>');
 
         unset($aktNameArray);
         
