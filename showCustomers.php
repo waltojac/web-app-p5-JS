@@ -22,7 +22,8 @@ session_start();
 $_SESSION['managerId'] = $man;
 
 
-printf('<h3>List of Customers with Outstanding Rentals at Store %s, %s</h3>', $address, $city);
+printf('<h2>List of Customers at Store %s, %s</h2>', $address, $city);
+printf('<h3>Customers with Outstanding Rentals</h3>');
 printf('<table class="left"> <tr class="head"><th></th><th>Name</th><th>Email</th><th>Rental History</th><th>New Rental</th></tr>');
 $i = 1;
 $result1 = $db->query("SELECT * FROM customer c, rental r where c.store_id = $store and c.customer_id = r.customer_id and r.return_date is null group by c.customer_id order by c.last_name");
@@ -33,7 +34,7 @@ while ($row = $result1->fetch_assoc()) {
 printf('</table>');
 
 
-printf('<h3>List of Customers with NO Outstanding Rentals at Store %s, %s</h3>', $address, $city);
+printf('<h3>Customers with NO Outstanding Rentals</h3>');
 printf('<table class="left"> <tr class="head"><th></th><th>Name</th><th>Email</th><th>Rental History</th><th>New Rental</th></tr>');
 $i = 1;
 
