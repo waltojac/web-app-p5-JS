@@ -37,7 +37,7 @@
 
 
         $str = "INSERT INTO rental (rental_date, inventory_id, customer_id, staff_id)
-        VALUES ('date', '$id', 'cid', '$man')";
+        VALUES ('date', $id, 'cid', $man)";
         if ($db->query($str) === true){
             printf('<p>Movie Checked-out Successfully.</p>');
         }
