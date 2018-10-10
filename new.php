@@ -33,7 +33,6 @@ printf('<table> <tr><th>Title</th><th>Rating</th><th>Duration</th><th>Actors</th
 
 if (isset($_GET['doSearch']) && !empty($_GET['tname'])) {
     $titleName = urldecode($_GET['tname']);
-    /*printf('<p>Title: %s</p>', $titleName);*/
     $custId = urlencode($_SESSION['cId']);
     $fTitle = urldecode($_GET['tname']);
 
@@ -43,9 +42,11 @@ if (isset($_GET['doSearch']) && !empty($_GET['tname'])) {
 LAKER;
 
     $i = 1;
+    $flag = false;
     $result = $db->query($rentalStr);
     while ($row = $result->fetch_assoc()) {
         $fid = $row['film_id'];
+        $flag = true;
 
         $filmStr = <<<LAKER
         SELECT * FROM inventory 
@@ -107,8 +108,11 @@ LAKER;
         unset($invArray);
         
     }
+    if (!$flag){
+        printf('<tr><td colspan="6" align="center">No Matching Titles.</td></tr>');
+    }
 } else {
-    printf('<tr><td colspan="6" align="center">Nothing to Display.</td></tr>');
+    printf('<tr><td colspan="6" align="center">No Matching Titles.</td></tr>');
 }
 
 printf('</table>');
