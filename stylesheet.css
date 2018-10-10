@@ -1,5 +1,6 @@
 table {
      width: 70%;
+     vertical-align: top;
 }
 tr:nth-child(odd) {
     background-color: wheat;
