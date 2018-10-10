@@ -48,7 +48,7 @@ $storeStr = <<<LAKER
                             WHERE c.customer_id = r1.customer_id 
                             and r1.return_date is null)
     GROUP BY c.customer_id 
-    ORDER BY c.last_name"
+    ORDER BY c.last_name
 LAKER;
 
 unset($row);
