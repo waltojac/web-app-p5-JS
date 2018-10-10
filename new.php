@@ -82,7 +82,7 @@ LAKER;
         }
 
         printf('<tr><td>%s</td><td>%s</td><td>%s</td>',
-        $row['title'], $row['rating'], $row['length'], $row['length']);
+        $row['title'], $row['rating'], $row['length']);
 
         // For Actor Names
         printf('<td>');
