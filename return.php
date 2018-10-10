@@ -25,7 +25,7 @@ LAKER;
 
     if ($db->query($updateStr) === true){
         printf('<p>Movie Checked-in Successfully.</p>');
-        echo $str;
+        echo $updateStr;
     }
     else {
         echo "Error: " . $str. "<br>" . $db->error;
