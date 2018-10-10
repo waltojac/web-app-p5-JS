@@ -33,7 +33,7 @@ printf('<table> <tr class="head"><th>Title</th><th>Rating</th><th>Duration</th><
 
 if (isset($_GET['doSearch']) && !empty($_GET['tname'])) {
     $titleName = urldecode($_GET['tname']);
-    $custId = urlencode($_SESSION['cId']);
+    $custId = urldecode($_SESSION['cId']);
     $fTitle = urldecode($_GET['tname']);
 
     $rentalStr = <<<LAKER

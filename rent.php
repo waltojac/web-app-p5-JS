@@ -33,12 +33,13 @@
             $mydbname);
         }
 
-        $man = $_SESSION['managerId'];
-        $id = $_SESSION['id'];
+        $man = urldecode($_SESSION['managerId']);
+        $id = urldecode($_SESSION['id']);
+        $custId = urldecode($_SESSION['cId']);
 
 
         $str = "INSERT INTO rental (rental_date, inventory_id, customer_id, staff_id)
-        VALUES ('date', '$id', 'cid', '$man')";
+        VALUES ('date', '$id', '$custId', '$man')";
         if ($db->query($str) === true){
             printf('<p>Movie Checked-out Successfully.</p>');
         }
