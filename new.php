@@ -61,6 +61,7 @@ LAKER;
         WHERE film_id =$fid
 LAKER;
 
+        // Get all actor ids and put in actArray
         $act = $db->query($actStr);
         while($actRow = $act->fetch_assoc()) {
             $actArray[] = $actRow['actor_id'];
@@ -71,6 +72,7 @@ LAKER;
         WHERE actor_id =$fid
 LAKER;
 
+        // For every actor id in the array, get their name string
         foreach($actArray as $akt){
             $actNameStr = <<<LAKER
             SELECT * FROM actor 
@@ -81,12 +83,12 @@ LAKER;
             $aktName[] = $aktNameRow['first_name']." ".$aktNameRow['last_name'];
         }
 
+        // Print first three items
         printf('<tr><td>%s</td><td>%s</td><td>%s</td>',
         $row['title'], $row['rating'], $row['length']);
 
-        // For Actor Names
+        // Print Actor Names
         printf('<td>');
-
         foreach($aktName as $a){
             printf('%s ', $a);
         }
@@ -99,6 +101,7 @@ LAKER;
             printf('%s ', $i);
         }
         printf('</td></tr>');
+        
     }
 } else {
     printf('<tr><td colspan="6" align="center">Nothing to Display.</td></tr>');
