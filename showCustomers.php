@@ -31,10 +31,9 @@ while ($row = $result->fetch_assoc()) {
     $i++, $row['first_name'], $row['last_name'], $row['email'], $row['customer_id'], $row['first_name']." ".$row['last_name'], $row['customer_id'], $row['first_name']." ".$row['last_name']);
     
 }
-print_r($db->error);
 printf('</table>');
 
-$row->free();
+$result->free();
 
 printf('<h3>List of Customers with NO Outstanding Rentals at Store %s, %s</h3>', $address, $city);
 printf('<table class="left"> <tr class="head"><th></th><th>Name</th><th>Email</th><th>Rental History</th><th>New Rental</th></tr>');
