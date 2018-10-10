@@ -16,6 +16,5 @@ tr:nth-child(even) {
 }
 
 td {
-    display: inline;
     vertical-align: top;
 }
