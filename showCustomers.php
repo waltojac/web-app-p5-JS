@@ -32,6 +32,8 @@ while ($row = $result->fetch_assoc()) {
 }
 printf('</table>');
 
+$row->free();
+
 printf('<h3>List of Customers with NO Outstanding Rentals at Store %s, %s</h3>', $address, $city);
 printf('<table class="left"> <tr class="head"><th></th><th>Name</th><th>Email</th><th>Rental History</th><th>New Rental</th></tr>');
 $i = 1;
