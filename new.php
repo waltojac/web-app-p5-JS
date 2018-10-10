@@ -104,6 +104,7 @@ LAKER;
         printf('</td></tr>');
 
         unset($aktNameArray);
+        unset($invArray);
         
     }
 } else {
