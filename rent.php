@@ -17,7 +17,7 @@
 
     printf('<table><tr><td>Customer</tb><td>%s</td></tr>', $_SESSION['cName']);
     printf('<tr><td>Movie Title</td><td>%s</td></tr>',  $_SESSION['title']);
-    printf('<tr><td>Inventory ID</td><td>%s</td></tr>', $_SESSION['id']);
+    printf('<tr><td>Inventory ID</td><td>%s</td></tr></table>', $_SESSION['id']);
 ?>
 <form action="" method=:"POST">
     <input type="submit" name="doSearch" value="Confirm">
