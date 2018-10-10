@@ -38,8 +38,8 @@
 
         $str = "INSERT INTO rental (rental_date, inventory_id, customer_id, staff_id)
         VALUES ('date', '$id', 'cid', '$man')";
-        if ($db->query()){
-            printf('<p>Movie Checked-out Successfully.');
+        if ($db->query($str)){
+            printf('<p>Movie Checked-out Successfully.</p>');
         }
 
 
