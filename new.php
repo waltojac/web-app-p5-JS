@@ -81,7 +81,7 @@ LAKER;
                 print_r("Here 2.5");
                 $str1 = $aktNameRow['first_name'];
                 $str2 = $aktNameRow['last_name'];
-                $aktName[] = $str1 . ' ' . $str2;
+                $aktName[] = $str1;
                 print_r("Here 2.75");
             }
         }
