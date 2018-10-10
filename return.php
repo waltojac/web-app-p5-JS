@@ -19,7 +19,7 @@
 
     $updateStr = <<<LAKER
     UPDATE inventory
-    SET return_date = $date
+    SET return_date = '$date'
     WHERE title = $title
     AND rental_date = $rDate
 LAKER;
