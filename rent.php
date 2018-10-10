@@ -41,6 +41,9 @@
         if ($db->query($str) === true){
             printf('<p>Movie Checked-out Successfully.</p>');
         }
+        else {
+            printf('<p>Failed to checkout.</p>');
+        }
 
 
 ?>
