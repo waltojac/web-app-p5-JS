@@ -20,7 +20,7 @@
     $updateStr = <<<LAKER
     UPDATE rental
     SET return_date =$date
-    WHERE rental_id =$rid;
+    WHERE rental_id =$rid
 LAKER;
 
     if ($db->query($updateStr) === true){
