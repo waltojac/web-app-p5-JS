@@ -77,7 +77,7 @@ LAKER;
             WHERE actor_id =$akt
 LAKER;
             $aktName = $db->query($actNameStr);
-            $aktNameRow = $aktName->fetch_field();
+            $aktNameRow = $aktName->fetch_assoc();
             $aktName[] = $aktNameRow['first_name']." ".$aktNameRow['last_name'];
         }
 
