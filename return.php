@@ -19,7 +19,7 @@
 
     $updateStr = <<<LAKER
         UPDATE rental
-        SET return_date = '$date'
+        SET return_date = "$date"
         WHERE rental_id =$rid
 LAKER;
 
