@@ -12,9 +12,12 @@
     printf('<table><tr><td>Customer</tb><td>%s</td></tr>', $_SESSION['cName']);
     printf('<tr><td>Movie Title</td><td>%s</td></tr>', $ti);
     printf('<tr><td>Inventory ID</td><td>%s</td></tr>', $id);
-
-
-
+?>
+<form action="" method=:"POST">
+    <input type="submit" name="doSearch" value="Confirm">
+</form>
+<?php
+    print_r("Test");
 
 ?>
 </body>
