@@ -20,8 +20,7 @@
     $updateStr = <<<LAKER
     UPDATE inventory
     SET return_date = '$date'
-    WHERE title = $title
-    AND rental_date = $rDate
+    WHERE rental_date =$rDate
 LAKER;
 
     if ($db->query($updateStr) === true){
