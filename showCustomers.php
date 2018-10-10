@@ -39,10 +39,14 @@ $i = 1;
 
 $storeStr = <<<LAKER
     SELECT * FROM customer c, rental r 
-    WHERE c.store_id = $store and c.customer_id = r.customer_id and r.return_date is not null and c.customer_id not in 
-        (SELECT * 
-         FROM rental r1 
-         WHERE c.customer_id = r1.customer_id and r1.return_date is null)
+    WHERE c.store_id = $store 
+    and c.customer_id = r.customer_id 
+    and r.return_date is not null 
+    and c.customer_id not in 
+                            (SELECT r1.customer_id 
+                            FROM rental r1 
+                            WHERE c.customer_id = r1.customer_id 
+                            and r1.return_date is null)
     GROUP BY c.customer_id 
     ORDER BY c.last_name"
 LAKER;
