@@ -4,9 +4,12 @@
 </head>
 <body>
 <h1>MoviePlus Rental</h1>
-
+<h3> Checkout Movie:</h3>
 <?php
-    printf('<p>Hello World.</p>');
+    session_start();
+    $ti = urldecode($_GET['title']);
+    printf('<table><tr><td>Customer</tb><td>%s</td></tr>', $_SESSION['cName']);
+    printf('<tr><td>Movie Title</td><td>%s</td></tr>', $ti);
 
 
 
