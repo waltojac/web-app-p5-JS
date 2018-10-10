@@ -20,13 +20,28 @@
     printf('<tr><td>Inventory ID</td><td>%s</td></tr></table>', $_SESSION['id']);
 ?>
 <form action="" method=:"POST">
-    <input type="submit" name="doSearch" value="Confirm">
+    <input type="submit" name="conf" value="Confirm">
 </form>
 <?php
     session_start();
-    if (isset($_GET['doSearch'])){
-        print_r("Test");
-    }
+    if (isset($_GET['conf'])){
+        require_once '.secret.php';
+
+        $db = new mysqli('cis.gvsu.edu', // hostname of db server
+            $mysqluser, // your userid
+            $mysqlpassword, // your password
+            $mydbname);
+        }
+
+        $man = $_SESSION['managerId'];
+
+
+        $str = "INSERT INTO rental (rental_date, inventory_id, customer_id, staff_id)
+        VALUES ('date', '$id', 'cid', '$man')";
+        if ($db->query()){
+            printf('<p>Movie Checked-out Successfully.');
+        }
+
 
 ?>
 </body>

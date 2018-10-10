@@ -17,6 +17,9 @@ $db = new mysqli('cis.gvsu.edu', // hostname of db server
 $store = urldecode($_GET['storeId']);
 $address = urldecode($_GET['addr']);
 $city = urldecode($_GET['cit']);
+$man = urldecode($_GET['man']);
+session_start();
+$_SESSION['managerId'] = $man;
 
 
 printf('<h3>List of Customers at Store %s, %s</h3>', $address, $city);
