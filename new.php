@@ -54,17 +54,45 @@ LAKER;
         $inv = $db->query($filmStr);
         while($invRow = $inv->fetch_assoc()) {
             $invArray[] = $invRow['inventory_id'];
-        }
-
-        foreach($invArray as $i){
-            printf("<p>%s</p>", $i);
-        }
+        }    
         
+        $actStr = <<<LAKER
+        SELECT * FROM film_actor 
+        WHERE film_id =$fid
+LAKER;
 
-        printf('<tr><td>%s</td><td>%s</td><td>%s</td><td>%s</td>',
+        $act = $db->query($actStr);
+        while($actRow = $act->fetch_assoc()) {
+            $actArray[] = $actRow['actor_id'];
+        }
+
+        $actNameStr = <<<LAKER
+        SELECT * FROM actor 
+        WHERE actor_id =$fid
+LAKER;
+
+        foreach($actArray as $akt){
+            $actNameStr = <<<LAKER
+            SELECT * FROM actor 
+            WHERE actor_id =$akt
+LAKER;
+            $aktName = $db->query($actNameStr);
+            $aktNameRow = $aktName->fetch_field();
+            $aktName[] = $aktNameRow['first_name']." ".$aktNameRow['last_name'];
+        }
+
+        printf('<tr><td>%s</td><td>%s</td><td>%s</td>',
         $row['title'], $row['rating'], $row['length'], $row['length']);
 
+        // For Actor Names
+        printf('<td>');
 
+        foreach($aktName as $a){
+            printf('%s ', $a);
+        }
+        printf('</td>');
+
+        //For inventories
         printf('<td>');
 
         foreach($invArray as $i){
