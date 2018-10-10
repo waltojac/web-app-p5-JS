@@ -79,12 +79,11 @@ LAKER;
             $aktName = $db->query($actNameStr);
             if ($aktNameRow = $aktName->fetch_assoc()) {
                 print_r("Here 2.5");
-                //$str1 = $aktNameRow['first_name'];
-                // $str2 = $aktNameRow['last_name'];
-                $aktName[] = 'tom';
+                $str1 = $aktNameRow['first_name'];
+                $str2 = $aktNameRow['last_name'];
+                $aktNameArray[] = $str1 . ' ' . $str2;
                 print_r("Here 2.75");
             }
-            $aktNameName->free();
         }
 
         print_r("Here 3");
@@ -97,7 +96,7 @@ LAKER;
 
         // Print Actor Names
         printf('<td>');
-        foreach($aktName as $a){
+        foreach($aktNameArray as $a){
             printf('%s ', $a);
         }
         printf('</td>');
