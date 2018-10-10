@@ -84,6 +84,7 @@ LAKER;
                 $aktName[] = 'tom';
                 print_r("Here 2.75");
             }
+            $aktNameName->free();
         }
 
         print_r("Here 3");
