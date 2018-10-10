@@ -18,7 +18,7 @@ $custName = urldecode($_GET['name']);
 
 printf('<h3>History for customer %s</h3>', $custName);
 
-printf('<table> <tr><th></th><th>Film Title</th><th>Rental Date</th><th>Return Date</th></tr>');
+printf('<table> <tr class="head"><th></th><th>Film Title</th><th>Rental Date</th><th>Return Date</th></tr>');
 
 $i = 1;
 $result = $db->query("SELECT * FROM rental where customer_id = $custId order by return_date");

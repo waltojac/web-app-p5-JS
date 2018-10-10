@@ -29,7 +29,7 @@ $db = new mysqli('cis.gvsu.edu', // hostname of db server
 
 session_start();
 printf('<h3>New Rental for Customer %s</h3>', $_SESSION['cName']);
-printf('<table> <tr><th>Title</th><th>Rating</th><th>Duration</th><th>Actors</th><th>Available Inventory</th></tr>');
+printf('<table> <tr class="head"><th>Title</th><th>Rating</th><th>Duration</th><th>Actors</th><th>Available Inventory</th></tr>');
 
 if (isset($_GET['doSearch']) && !empty($_GET['tname'])) {
     $titleName = urldecode($_GET['tname']);
