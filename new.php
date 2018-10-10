@@ -102,6 +102,8 @@ LAKER;
             printf('%s ', $i);
         }
         printf('</td></tr>');
+
+        unset($aktNameArray);
         
     }
 } else {
