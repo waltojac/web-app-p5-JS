@@ -79,9 +79,9 @@ LAKER;
             $aktName = $db->query($actNameStr);
             if ($aktNameRow = $aktName->fetch_assoc()) {
                 print_r("Here 2.5");
-                $str1 = $aktNameRow['first_name'];
+                //$str1 = $aktNameRow['first_name'];
                 // $str2 = $aktNameRow['last_name'];
-                $aktName[] = $str1;
+                $aktName[] = 'tom';
                 print_r("Here 2.75");
             }
         }
