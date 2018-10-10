@@ -1,6 +1,5 @@
 table {
      width: 70%;
-     vertical-align: top;
 }
 tr:nth-child(odd) {
     background-color: wheat;
@@ -15,9 +14,7 @@ tr:nth-child(even) {
     background-color: palegreen;
     border-color: palegreen;
 }
-/*table.left td {
-    text-align: left;
-}
+
 td {
-    text-align: center;
-}*/
+    vertical-align: text-top;
+}
