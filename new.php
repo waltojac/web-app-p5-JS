@@ -99,7 +99,7 @@ LAKER;
         printf('<td>');
 
         foreach($invArray as $i){
-            printf('%s ', $i);
+            printf('<a href="rent.php?%s">%s </a>', $i, $i);
         }
         printf('</td></tr>');
 
