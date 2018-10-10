@@ -99,7 +99,7 @@ LAKER;
         printf('<td>');
 
         foreach($invArray as $i){
-            printf('$s ', $i);
+            printf('%s ', $i);
         }
         printf('</td></tr>');
 
