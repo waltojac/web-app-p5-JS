@@ -1,5 +1,5 @@
 table {
-     width: auto;
+     /*width: auto;*/
 }
 tr:nth-child(odd) {
     background-color: wheat;
