@@ -9,14 +9,21 @@
     session_start();
     $ti = urldecode($_GET['title']);
     $id = urldecode($_GET['inv']);
+    if (!empty($ti) && !empty($id)){
+        $_SESSION['title'] = "$ti";
+        $_SESSION['id'] = "$id";
+    }
+    
+
     printf('<table><tr><td>Customer</tb><td>%s</td></tr>', $_SESSION['cName']);
-    printf('<tr><td>Movie Title</td><td>%s</td></tr>', $ti);
-    printf('<tr><td>Inventory ID</td><td>%s</td></tr>', $id);
+    printf('<tr><td>Movie Title</td><td>%s</td></tr>',  $_SESSION['title']);
+    printf('<tr><td>Inventory ID</td><td>%s</td></tr>', $_SESSION['id']);
 ?>
 <form action="" method=:"POST">
     <input type="submit" name="doSearch" value="Confirm">
 </form>
 <?php
+    session_start();
     if (isset($_GET['doSearch'])){
         print_r("Test");
     }
