@@ -36,10 +36,11 @@
         $man = urldecode($_SESSION['managerId']);
         $id = urldecode($_SESSION['id']);
         $custId = urldecode($_SESSION['cId']);
+        $date = date('Y-m-d H:i:s');
 
 
         $str = "INSERT INTO rental (rental_date, inventory_id, customer_id, staff_id)
-        VALUES ('date', '$id', '$custId', '$man')";
+        VALUES ('$date', '$id', '$custId', '$man')";
         if ($db->query($str) === true){
             printf('<p>Movie Checked-out Successfully.</p>');
         }
