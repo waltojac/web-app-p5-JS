@@ -69,10 +69,6 @@ LAKER;
             $actArray[] = $actRow['actor_id'];
         }
 
-        $actNameStr = <<<LAKER
-        SELECT * FROM actor 
-        WHERE actor_id =$fid
-LAKER;
         print_r("Here 2");
         // For every actor id in the array, get their name string
         foreach($actArray as $akt){
@@ -82,7 +78,9 @@ LAKER;
 LAKER;
             $aktName = $db->query($actNameStr);
             $aktNameRow = $aktName->fetch_assoc();
+            print_r("Here 2.5");
             $aktName[] = $aktNameRow['first_name']." ".$aktNameRow['last_name'];
+            print_r("Here 2.75");
         }
 
         print_r("Here 3");
