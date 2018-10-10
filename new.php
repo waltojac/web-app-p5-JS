@@ -77,12 +77,13 @@ LAKER;
             WHERE actor_id =$akt
 LAKER;
             $aktName = $db->query($actNameStr);
-            $aktNameRow = $aktName->fetch_assoc();
-            print_r("Here 2.5");
-            $str1 = $aktNameRow['first_name'];
-            $str2 = $aktNameRow['last_name'];
-            $aktName[] = $str1 . ' ' . $str2;
-            print_r("Here 2.75");
+            if ($aktNameRow = $aktName->fetch_assoc()) {
+                print_r("Here 2.5");
+                $str1 = $aktNameRow['first_name'];
+                $str2 = $aktNameRow['last_name'];
+                $aktName[] = $str1 . ' ' . $str2;
+                print_r("Here 2.75");
+            }
         }
 
         print_r("Here 3");
