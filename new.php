@@ -96,12 +96,12 @@ LAKER;
         printf('</td>');
 
         //For inventories
-        printf('<td>');
+        printf('<td><ul>');
 
         foreach($invArray as $i){
-            printf('%s ', $i);
+            printf('<li>%s</li>', $i);
         }
-        printf('</td></tr>');
+        printf('</ul></td></tr>');
 
         unset($aktNameArray);
         
