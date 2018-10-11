@@ -13,8 +13,17 @@ $db = new mysqli('cis.gvsu.edu', // hostname of db server
     $mysqlpassword, // your password
     $mydbname);
 
+session_start();
 $custId = urldecode($_GET['id']);
 $custName = urldecode($_GET['name']);
+if (!empty($custId) && !empty($custName)){
+    session_start();
+    $_SESSION['cName'] = "$custName";
+    $_SESSION['cId'] = "$custId";
+} else {
+    $custId = $_SESSION['cId'];
+    $custName = $_SESSION['cName'];
+}
 
 printf('<h3>History for customer %s</h3>', $custName);
 
