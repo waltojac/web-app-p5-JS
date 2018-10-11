@@ -6,7 +6,7 @@
 <body>
 <h1>MoviePlus Rental</h1>
 
-<p>Select a store below:</p>
+<p class="select">Select a store below:</p>
 <?php
 error_reporting(E_ALL);
 ini_set('display_errors', 1);

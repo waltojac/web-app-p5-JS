@@ -9,7 +9,9 @@ h1 {
 h2,h3 {
     text-align: center;
 }
-
+p.select {
+    text-align: center;
+}
 table {
     width: 70%;
     position: relative;
