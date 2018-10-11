@@ -32,6 +32,7 @@ LAKER;
     else {
         echo "Error: " . $str. "<br>" . $db->error;
     }
+    header('Location: history.php');
 
 ?>
 
