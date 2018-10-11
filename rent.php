@@ -4,8 +4,8 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
 </head>
 <body>
-<h1>MoviePlus Rental</h1>
-<h3> Checkout Movie:</h3>
+<h1><a href="home.php" class="nav-link">MoviePlus Rental</a></h1>
+<h3>Checkout Movie:</h3>
 <?php
     session_start();
     $ti = urldecode($_GET['title']);

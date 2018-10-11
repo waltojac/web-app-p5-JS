@@ -4,7 +4,7 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
 </head>
 <body>
-<h1>MoviePlus Rental</h1>
+<h1><a href="home.php" class="nav-link">MoviePlus Rental</a></h1>
 <?php
 $custId = urldecode($_GET['id']);
 $custName = urldecode($_GET['name']);
