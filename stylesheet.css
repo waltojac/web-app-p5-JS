@@ -34,6 +34,11 @@ td {
 }
 
 
+footer {
+    position: relative;
+    top: 80%;
+}
+
 a.nav-link:link
 {
    color: black;
