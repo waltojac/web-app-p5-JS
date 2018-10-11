@@ -9,6 +9,7 @@ h1 {
 
 table {
      width: auto;
+     position: center;
 }
 tr:nth-child(odd) {
     background-color: wheat;
