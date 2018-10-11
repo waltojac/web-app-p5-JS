@@ -72,7 +72,7 @@ printf('</table>');
 ?>
 </body>
 <footer>
-	<p>Jacob Walton</p>
+	<p> Created by Jacob Walton</p>
 </footer>
 </html>
 

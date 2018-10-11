@@ -35,8 +35,9 @@ td {
 
 
 footer {
+    text-align: center;
     position: relative;
-    top: 80%;
+    top: 65%;
 }
 
 a.nav-link:link
