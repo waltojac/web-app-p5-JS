@@ -71,5 +71,8 @@ LAKER;
 printf('</table>');
 ?>
 </body>
+<footer>
+	<p>Jacob Walton</p>
+</footer>
 </html>
 
