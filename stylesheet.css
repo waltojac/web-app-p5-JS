@@ -8,8 +8,10 @@ h1 {
 }
 
 table {
-     width: auto;
-     position: center;
+    width: auto;
+    position:absolute;
+    left:50%;
+    top:50%;
 }
 tr:nth-child(odd) {
     background-color: wheat;
