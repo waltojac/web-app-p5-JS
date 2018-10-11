@@ -33,6 +33,10 @@ td {
     vertical-align: top;
 }
 
+form {
+    text-align: center;
+}
+
 
 footer {
     text-align: center;
