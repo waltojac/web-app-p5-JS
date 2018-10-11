@@ -8,9 +8,9 @@ h1 {
 }
 
 table {
-    width: auto;
+    width: 70%;
     position: relative;
-    left:25%;
+    left:15%;
 }
 tr:nth-child(odd) {
     background-color: wheat;
