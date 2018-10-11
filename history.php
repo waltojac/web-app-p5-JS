@@ -25,6 +25,11 @@ if (!empty($custId) && !empty($custName)){
     $custName = $_SESSION['cName'];
 }
 
+$success = urldecode($_GET['success']);
+if ($success){
+    printf('<p>Successfully checked movie in!</p>');
+}
+
 printf('<h3>History for customer %s</h3>', $custName);
 
 printf('<table> <tr class="head"><th></th><th>Film Title</th><th>Rental Date</th><th>Return Date</th></tr>');

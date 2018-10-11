@@ -25,14 +25,11 @@ LAKER;
 
     if ($db->query($updateStr) === true){
         printf('<p>Movie Checked-in Successfully.</p>');
-        $str = $db->query("SELECT * from rental where rental_id=$rid");
-        echo $str->fetch_assoc()[0];
-        echo $updateStr;
     }
     else {
         echo "Error: " . $str. "<br>" . $db->error;
     }
-    header('Location: history.php');
+    header('Location: history.php?success="true"');
 
 ?>
 
