@@ -59,4 +59,7 @@ printf('</table>');
 
 ?>
 </body>
+<footer>
+	<p> Created by Jacob Walton</p>
+</footer>
 </html>
