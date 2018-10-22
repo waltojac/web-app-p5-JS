@@ -1,13 +1,6 @@
-<html>
-<head>
-    <link rel="stylesheet" href="stylesheet.css">
-	<link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
-</head>
-<body>
-<h1>MoviePlus Rental</h1>
-
-<p class="select">Select a store below:</p>
 <?php
+header("Content-Type: application/json");
+header("Access-Control-Allow-Origin: *");
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 require_once '.secret.php';
@@ -17,62 +10,18 @@ $db = new mysqli('cis.gvsu.edu', // hostname of db server
     $mysqlpassword, // your password
     $mydbname);
 
-printf('<table class="left"> <tr class="head"><th>Store</th><th>Manager</th><th>Address</th><th>Country</th></tr>');
-
-$result = $db->query("SELECT * FROM store");
-while ($row = $result->fetch_assoc()) {
-    $man = urlencode($row['manager_staff_id']);
-    $add = urlencode($row['address_id']);
-
-    $storeStr = <<<LAKER
-  		SELECT first_name, last_name
-		FROM   staff
- 		WHERE  staff_id = $man
+	$mainQry = <<<LAKER
+		SELECT stor.store_id, staf.first_name, staf.last_name, a.address, c.city, co.country
+		FROM store stor, staff staf, address a, city c, country co
+		WHERE staf.staff_id = stor.manager_staff_id
+		AND stor.address_id = a.address_id
+		AND a.city_id = c.city_id
+		AND c.country_id = co.country_id
+		GROUP BY stor.store_id
 LAKER;
 
-    $store = $db->query($storeStr);
-    $storeRow = $store->fetch_assoc();
 
-    $addressStr = <<<LAKER
-  		SELECT *
-		FROM   address
- 		WHERE  address_id = $add
-LAKER;
-
-    $address = $db->query($addressStr);
-	$addressRow = $address->fetch_assoc();
-	
-	$cit = urlencode($addressRow['city_id']);
-
-    $cityStr = <<<LAKER
-			SELECT *
-		  	FROM   city
-		   	WHERE  city_id = $cit
-LAKER;
-
-    $city = $db->query($cityStr);
-	$cityRow = $city->fetch_assoc();
-	
-	$countr = urlencode($cityRow['country_id']);
-
-	$countryStr = <<<LAKER
-			SELECT *
-		  	FROM   country
-		   	WHERE  country_id = $countr
-LAKER;
-
-    $country = $db->query($countryStr);
-    $countryRow = $country->fetch_assoc();
-
-    printf('<tr><td><a href="showCustomers.php?storeId=%s&addr=%s&cit=%s&man=%s">%s</a></td><td>%s %s</td><td>%s, %s</td><td>%s</td></tr>',
-	$row['store_id'], $addressRow['address'], $cityRow['city'], $man, $row['store_id'], $storeRow['first_name'], $storeRow['last_name'], 
-	$addressRow['address'], $cityRow['city'], $countryRow['country']);
-}
-printf('</table>');
+$result = $db->query($mainQry);
+$data = $result->fetch_all(MYSQLI_ASSOC);
+print json_encode($data);
 ?>
-</body>
-<footer>
-	<p> Created by Jacob Walton</p>
-</footer>
-</html>
-

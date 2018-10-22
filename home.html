@@ -1,0 +1,64 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en-us">
+<head>
+    <link rel="stylesheet" href="stylesheet.css">
+     <meta charset="UTF-8"> 
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
+</head>
+<body>
+<h1><a href="home.php" class="nav-link">MoviePlus Rental</a></h1>
+<table class="left" id="mainTable"> 
+    <tr class="head"><th>Store</th><th>Manager</th><th>Address</th><th>Country</th></tr>
+</table>
+
+<table class="hideme" id="custTable"> 
+        <tr class="head"><th></th><th>Name</th><th>Email</th><th>Rental History</th><th>New Rental</th></tr>
+</table>
+
+
+<script>
+custList = "";
+fetch('https://cis.gvsu.edu/~waltojac/web-app-p5-JS/home.php?justatest=true')
+  .then(response => response.json())
+  .then((data) => {
+    let tab = document.getElementById("mainTable");
+    data.forEach ((it) => {
+        const row = document.createElement("tr");
+        row.innerHTML = `<td><input type="button" value="Select" data-store-id="${it.store_id}" onclick="store_selected(event)"/></td><td>${it.first_name} ${it.last_name}</td><td>${it.address}, ${it.city}</td><td>${it.country}</td>`;
+        tab.appendChild(row);
+    });
+  });
+
+
+function store_selected(ev) {
+    console.log(`Store selected.`);
+    const mydata = ev.currentTarget.getAttribute('data-store-id');
+    console.log(`About to proceed to details for store ${mydata}`);
+    fetch(`https://cis.gvsu.edu/~waltojac/web-app-p5-JS/showCustomers.php?storeId=${mydata}`)
+    .then(res => res.json()
+    , (error) => console.log(`Error getting JSON: ${error}`))
+    .then((data) => {
+        console.log(data);
+        // Add code to print tables
+        let mainTab = document.getElementById("mainTable");
+        let custTab = document.getElementById("custTable");
+        mainTab.classList.add('hideme');       // hide the element
+        custTab.classList.remove('hideme');       // hide the element
+        var i = 1
+        data.forEach ((it) => {
+            const row = document.createElement("tr");
+            row.innerHTML = `<td>${i++}</td><td>${it.first_name} ${it.last_name}</td><td>${it.email}</td><td>View</td><td>Rent</td>`;
+            custTab.appendChild(row);    
+        });
+
+    });
+}
+
+
+</script>
+
+</body>
+<footer>
+        <p> Created by Jacob Walton</p>
+</footer>
+</html>

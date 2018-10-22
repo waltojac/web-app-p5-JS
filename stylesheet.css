@@ -2,6 +2,12 @@
     font-family: 'Roboto Slab', serif;
 }
 
+.hideme {
+    display: none;
+  }
+  
+  
+
 h1 {
     background-color: palegreen;
     text-align: center;
