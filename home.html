@@ -7,32 +7,74 @@
 </head>
 <body>
 <h1><a href="home.php" class="nav-link">MoviePlus Rental</a></h1>
-<table class="left" id="mainTable"> 
-    <tr class="head"><th>Store</th><th>Manager</th><th>Address</th><th>Country</th></tr>
-</table>
 
-<table class="hideme" id="custTable"> 
-        <tr class="head"><th></th><th>Name</th><th>Email</th><th>Rental History</th><th>New Rental</th></tr>
-</table>
+<div id="section1">
+    <table class="left" id="mainTable"> 
+        <tr class="head"><th>Store</th><th>Manager</th><th>Address</th><th>Country</th></tr>
+    </table>
+</div>
 
+<div id="section2" class="hideme">
+    <input type="button" value="Back" onclick="back(event);">
+    <h2 id="custTitle">List of Customers at Store address, city</h2>
+    <h3  id="custOutH">Customers with Outstanding Rentals</h3>
+    <table id="custOutTable"> 
+    </table>
+    <h3 id="custNoH">Customers with NO Outstanding Rentals</h3>
+    <table id="custNoTable"> 
+    </table>
+</div>
+
+
+<div id="section3" class="hideme">
+    <input type="button" value="Back" onclick="back(event);">
+    <h3 id="histTitle">History for customer %s</h3>
+    <table id="histTable"> <tr class="head"><th></th><th>Film Title</th><th>Rental Date</th><th>Return Date</th></tr>
+        <tr><td>Num</td><td>Title</td><td>RentalDate</td><td></td></tr>
+    </table>
+</div>
+
+<div id="section4" class="hideme">
+    <input type="button" value="Back" onclick="back(event);">
+    <form>
+            Search for Movie Title:
+                <input type="____" name="tname">
+                <input type="submit" name="doSearch" value="Search">
+    </form>
+    <h3 id="rentTitle">New Rental for Customer %s</h3>
+    <table id="searchTable"> 
+        <tr class="head"><th>Title</th><th>Rating</th><th>Duration</th><th>Actors</th><th>Available Inventory</th></tr>
+        <tr><td colspan="6" align="center">No Matching Titles.</td></tr>
+    </table>
+</div>
 
 <script>
 custList = "";
-fetch('https://cis.gvsu.edu/~waltojac/web-app-p5-JS/home.php?justatest=true')
+currSection = 1;
+
+fetch('https://cis.gvsu.edu/~waltojac/web-app-p5-JS/home.php')
   .then(response => response.json())
   .then((data) => {
     let tab = document.getElementById("mainTable");
     data.forEach ((it) => {
         const row = document.createElement("tr");
-        row.innerHTML = `<td><input type="button" value="Select" data-store-id="${it.store_id}" onclick="store_selected(event)"/></td><td>${it.first_name} ${it.last_name}</td><td>${it.address}, ${it.city}</td><td>${it.country}</td>`;
+        row.innerHTML = `<td><input type="button" value="Select" data-store-id="${it.store_id}" data-address="${it.address}" data-city="${it.city}" onclick="store_selected(event);"/></td><td>${it.first_name} ${it.last_name}</td><td>${it.address}, ${it.city}</td><td>${it.country}</td>`;
         tab.appendChild(row);
     });
   });
 
-
+//Display customer list after store was selected.
 function store_selected(ev) {
     console.log(`Store selected.`);
-    const mydata = ev.currentTarget.getAttribute('data-store-id');
+    currSection = 2;
+    const add = ev.currentTarget.getAttribute('data-address');
+    const cit = ev.currentTarget.getAttribute('data-city');
+
+    let custT= document.getElementById('custTitle');
+    custT.innerText = ("List of Customers at Store: " + add + ", " + cit);
+    
+
+    let mydata = ev.currentTarget.getAttribute('data-store-id');
     console.log(`About to proceed to details for store ${mydata}`);
     fetch(`https://cis.gvsu.edu/~waltojac/web-app-p5-JS/showCustomers.php?storeId=${mydata}`)
     .then(res => res.json()
@@ -41,17 +83,171 @@ function store_selected(ev) {
         console.log(data);
         // Add code to print tables
         let mainTab = document.getElementById("mainTable");
-        let custTab = document.getElementById("custTable");
-        mainTab.classList.add('hideme');       // hide the element
-        custTab.classList.remove('hideme');       // hide the element
+        let custOutTab = document.getElementById("custOutTable");
+        let custNoTab = document.getElementById("custNoTable");
+        let section1 = document.getElementById("section1");
+        let section2= document.getElementById("section2");
+        
+        section1.classList.add('hideme');       // hide the element
+        section2.classList.remove('hideme');       // unhide the element
+        
+        //clear table
+        while (custOutTab.firstChild) {
+            custOutTab.removeChild(custOutTab.firstChild);
+        }
+        //clear table
+        while (custNoTab.firstChild) {
+            custNoTab.removeChild(custNoTab.firstChild);
+        }
+        const head = document.createElement("tr");
+        head.innerHTML = `<tr><th></th><th>Name</th><th>Email</th><th>Rental History</th><th>New Rental</th></tr>`;
+        head.classList.add('head');
+        h2 = head.cloneNode(true);
+        custOutTab.appendChild(head);
+        custNoTab.appendChild(h2);
+
         var i = 1
-        data.forEach ((it) => {
+        data.outRentals.forEach ((it) => {
             const row = document.createElement("tr");
-            row.innerHTML = `<td>${i++}</td><td>${it.first_name} ${it.last_name}</td><td>${it.email}</td><td>View</td><td>Rent</td>`;
-            custTab.appendChild(row);    
+            row.innerHTML = `<td>${i++}</td><td>${it.first_name} ${it.last_name}</td><td>${it.email}</td>
+            <td><input type="button" value="View" data-cust-id="${it.customer_id}" data-name="${it.first_name} ${it.last_name}" onclick="hist_selected(event);"/></td>
+            <td><input type="button" value="Rent" data-cust-id="${it.customer_id}" data-name="${it.first_name} ${it.last_name}" onclick="rent_selected(event);"/></td>`;
+            custOutTab.appendChild(row);    
+        });
+        var i = 1
+        data.noOutRentals.forEach ((it) => {
+            const row = document.createElement("tr");
+            row.innerHTML = `<td>${i++}</td><td>${it.first_name} ${it.last_name}</td><td>${it.email}</td>
+            <td><input type="button" value="View" data-cust-id="${it.customer_id}" data-name="${it.first_name} ${it.last_name}" onclick="hist_selected(event);"/></td>
+            <td><input type="button" value="Rent" data-cust-id="${it.customer_id}" data-name="${it.first_name} ${it.last_name}" onclick="rent_selected(event);"/></td>`;
+            custNoTab.appendChild(row);    
         });
 
     });
+} // end store selected func
+
+
+function hist_selected(ev){
+    console.log(`History selected.`);
+    currSection = 3;
+    const cust_id = ev.currentTarget.getAttribute('data-cust-id');
+    const name = ev.currentTarget.getAttribute('data-name');
+
+    let histT= document.getElementById('histTitle');
+    histT.innerText = ("History for customer " + name);
+
+    let section2 = document.getElementById("section2");
+    let section3= document.getElementById("section3");
+    section2.classList.add('hideme');     
+    section3.classList.remove('hideme');
+
+    console.log(`About to proceed to history for ${name} id:${cust_id}`);
+    fetch(`https://cis.gvsu.edu/~waltojac/web-app-p5-JS/history.php?id=${cust_id}`)
+    .then(res => res.json()
+    , (error) => console.log(`Error getting JSON: ${error}`))
+    .then((data) => {
+        console.log(data);
+        let tab= document.getElementById('histTable');
+        //clear table
+        while (tab.firstChild) {
+            tab.removeChild(tab.firstChild);
+        }
+        const head = document.createElement("tr");
+        head.innerHTML = `<tr class="head"><th></th><th>Film Title</th><th>Rental Date</th><th>Return Date</th></tr>`;
+        head.classList.add('head');
+        tab.appendChild(head);
+
+        var i = 1
+        data.forEach ((it) => {
+            const row = document.createElement("tr");
+            if (it.return_date){
+                row.innerHTML = `<td>${i++}</td><td>${it.title}</td><td>${it.rental_date}</td><td>${it.return_date}</td>`;
+            }
+            else {
+                row.innerHTML = `<td>${i++}</td><td>${it.title}</td><td>${it.rental_date}</td><td><input type="button" value="Check-in" data-rid="${it.rental_id}" onclick="checkin_selected(event);"/></td>`;
+            }
+            tab.appendChild(row);    
+        });
+
+    });
+
+}
+
+function checkin_selected(ev){
+    console.log(`Check-in selected.`);
+    
+    const rid = ev.currentTarget.getAttribute('data-rid');
+    console.log(`About to proceed to checkout for ${rid}`);
+
+    // Add second arg to {method:"POST"}
+    fetch(`https://cis.gvsu.edu/~waltojac/web-app-p5-JS/return.php?rid=${rid}`)
+    .then(res => res.json()
+    , (error) => console.log(`Error posting: ${error}`))
+    .then((data) => {
+        console.log(data);
+        if (data.result == "success"){
+            console.log("Check in successful!");
+            let tab = document.getElementById('histTable');
+            let targetRow = tab.querySelector(`input[data-rid="${rid}"]`);
+            let par = targetRow.parentNode;
+            par.removeChild(targetRow);
+            par.innerHTML = '<td>Checked in!</td>'
+        } else {
+            console.log("Failed to checkout.");
+        }
+    });
+}
+
+//When form is submitted.
+document.querySelector('form').addEventListener('submit', (e) => {
+  const formData = new FormData(e.target);
+  console.log(formData.get('tname'));
+  // Now you can use formData.get('foo'), for example.
+  // Don't forget e.preventDefault() if you want to stop normal form .submission
+  e.preventDefault();
+});
+
+function search(ev){
+    console.log("Search entered.");
+    let data = $('form').serializeArray();
+    console.log(data);
+
+}
+
+function rent_selected(ev) {
+    console.log("Rent Selected.");
+    currSection = 4;
+    const cust_id = ev.currentTarget.getAttribute('data-cust-id');
+    const name = ev.currentTarget.getAttribute('data-name');
+
+    let rentTitle= document.getElementById('rentTitle');
+    rentTitle.innerText = ("New Rental for Customer " + name);
+
+    let section2 = document.getElementById("section2");
+    let section4= document.getElementById("section4");
+    section2.classList.add('hideme');     
+    section4.classList.remove('hideme');
+
+
+}
+
+function back(ev) {
+    if (currSection == 2){
+        let section1 = document.getElementById("section1");
+        let section2= document.getElementById("section2");
+        
+        section1.classList.remove('hideme');     
+        section2.classList.add('hideme');       
+        currSection = 1;
+    }
+    if (currSection == 3 || currSection == 4){
+        let section2 = document.getElementById("section2");
+        let section3= document.getElementById("section3");
+        
+        section2.classList.remove('hideme');     
+        section3.classList.add('hideme');       
+        currSection = 2;
+    }
 }
 
 

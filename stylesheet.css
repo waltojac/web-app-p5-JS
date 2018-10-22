@@ -27,14 +27,15 @@ tr:nth-child(odd) {
     background-color: wheat;
     border-color: wheat;
 }
+
+tr:nth-child(even) {
+    background-color: palegreen;
+    border-color: palegreen;
+}
 tr.head {
     background-color: black;
     border-color: black;
     color: white;
-}
-tr:nth-child(even) {
-    background-color: palegreen;
-    border-color: palegreen;
 }
 
 td {

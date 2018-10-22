@@ -1,13 +1,9 @@
-<html>
-<head>
-    <link rel="stylesheet" href="stylesheet.css">
-    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
-</head>
-<body>
-<h1><a href="home.php" class="nav-link">MoviePlus Rental</a></h1>
-
-
 <?php
+# error_reporting(E_ALL);
+# ini_set('display_errors', 1);
+header("Content-Type: application/json");
+header("Access-Control-Allow-Origin: *");
+
     require_once '.secret.php';
 
     $db = new mysqli('cis.gvsu.edu', // hostname of db server
@@ -18,7 +14,6 @@
     $date = date('Y-m-d H:i:s');
     $rid = urldecode($_GET['rid']);
     
-
     $updateStr = <<<LAKER
         UPDATE rental
         SET return_date = "$date"
@@ -26,14 +21,11 @@
 LAKER;
 
     if ($db->query($updateStr) === true){
-        printf('<p>Movie Checked-in Successfully.</p>');
+        $msg->result = "success";
+        print json_encode($msg);
     }
     else {
-        echo "Error: " . $str. "<br>" . $db->error;
+        $msg->result = "fail";
+        print json_encode($msg);
     }
-    header('Location: history.php?success="true"');
-
 ?>
-
-</body>
-</html>

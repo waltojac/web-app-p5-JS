@@ -1,8 +1,8 @@
 <?php
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
-//header("Content-Type: application/json");
-//header("Access-Control-Allow-Origin: *");
+header("Content-Type: application/json");
+header("Access-Control-Allow-Origin: *");
 require_once '.secret.php';
 
 $db = new mysqli('cis.gvsu.edu', // hostname of db server
@@ -27,12 +27,9 @@ LAKER;
 
 $result1 = $db->query($mainStr);
 $data1 = $result1->fetch_all(MYSQLI_ASSOC);
-print json_encode($data1);
 
 
 
-$i = 1;
-/*
 //No outstanding rentals
 $secondStr = <<<LAKER
     SELECT * FROM customer c, rental r 
@@ -50,6 +47,6 @@ LAKER;
 
 $result2 = $db->query($secondStr);
 $data2 = $result2->fetch_all(MYSQLI_ASSOC);
-print json_encode($data2);
-*/
+$data = array('outRentals' => $data1, 'noOutRentals' => $data2);
+print json_encode($data)
 ?>
