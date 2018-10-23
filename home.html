@@ -327,6 +327,10 @@ function checkout(ev){
     const title = ev.currentTarget.getAttribute('data-title');
 
     let tab = document.getElementById('checkoutTable');
+    //clear table
+    while (tab.firstChild) {
+                tab.removeChild(tab.firstChild);
+    }
 
     const c = document.createElement("tr");
     const m = document.createElement("tr");
