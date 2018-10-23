@@ -41,7 +41,7 @@
                 <input type="____" name="tname">
                 <input type="submit" name="doSearch" value="Search">
     </form>
-    <h3 id="rentTitle">New Rental for Customer %s</h3>
+    <h3 id="searchTitle">New Rental for Customer %s</h3>
     <table id="searchTable"> 
         <tr class="head"><th>Title</th><th>Rating</th><th>Duration</th><th>Actors</th><th>Available Inventory</th></tr>
         <tr><td colspan="6" align="center">No Matching Titles.</td></tr>
@@ -49,9 +49,18 @@
 </div>
 
 <script>
+
+//Global Variables
 custList = "";
 currSection = 1;
+let cust_id = "";
+let custName = "";
 
+
+/* 
+-- MAIN FETCH --
+Home page fetch that populates the main table.
+*/
 fetch('https://cis.gvsu.edu/~waltojac/web-app-p5-JS/home.php')
   .then(response => response.json())
   .then((data) => {
@@ -63,7 +72,10 @@ fetch('https://cis.gvsu.edu/~waltojac/web-app-p5-JS/home.php')
     });
   });
 
-//Display customer list after store was selected.
+/* 
+-- CUSTOMER LIST FUNCTION --
+Display customer list after store was selected.
+*/
 function store_selected(ev) {
     console.log(`Store selected.`);
     currSection = 2;
@@ -126,15 +138,18 @@ function store_selected(ev) {
     });
 } // end store selected func
 
-
+/* 
+-- HISTORY FUNCTION --
+When the view history button is clicked, will display customer history.
+*/
 function hist_selected(ev){
     console.log(`History selected.`);
     currSection = 3;
-    const cust_id = ev.currentTarget.getAttribute('data-cust-id');
-    const name = ev.currentTarget.getAttribute('data-name');
+    cust_id = ev.currentTarget.getAttribute('data-cust-id');
+    custName = ev.currentTarget.getAttribute('data-name');
 
     let histT= document.getElementById('histTitle');
-    histT.innerText = ("History for customer " + name);
+    histT.innerText = ("History for customer " + custName);
 
     let section2 = document.getElementById("section2");
     let section3= document.getElementById("section3");
@@ -170,9 +185,12 @@ function hist_selected(ev){
         });
 
     });
-
 }
 
+/* 
+-- CHECKIN FUNCTION --
+When the checkin button is clicked.
+*/
 function checkin_selected(ev){
     console.log(`Check-in selected.`);
     
@@ -198,39 +216,121 @@ function checkin_selected(ev){
     });
 }
 
-//When form is submitted.
+/* 
+-- SEARCH FUNCTION --
+When the search form submit button is clicked.
+*/
 document.querySelector('form').addEventListener('submit', (e) => {
   const formData = new FormData(e.target);
   console.log(formData.get('tname'));
-  // Now you can use formData.get('foo'), for example.
-  // Don't forget e.preventDefault() if you want to stop normal form .submission
+  str = formData.get('tname');
+  let tab = document.getElementById('searchTable');
+
+  fetch(`https://cis.gvsu.edu/~waltojac/web-app-p5-JS/new.php?tname=${str}`)
+    .then(res => res.json()
+    , (error) => console.log(`Error posting: ${error}`))
+    .then((data) => {
+        if (data){
+            console.log(data);
+            //clear table
+            while (tab.firstChild) {
+                tab.removeChild(tab.firstChild);
+            }
+            const head = document.createElement("tr");
+            head.innerHTML = `<th>Title</th><th>Rating</th><th>Duration</th><th>Actors</th><th>Available Inventory</th>`;
+            head.classList.add('head');
+            tab.appendChild(head);
+
+            data.forEach ((it) => {
+                const ul = document.createElement("ul");
+
+
+                var as = JSON.parse(it.aktArr);
+                as.forEach((na) => {
+                    const li = document.createElement("li");
+                    li.innerHTML = na;
+                    ul.appendChild(li);
+                });
+
+                var invList = JSON.parse(it.invArr);
+                const td = document.createElement("td");
+
+                invList.forEach((na) => {
+                    const input = document.createElement("input");
+                    input.type = "button";
+                    input.value = na;
+                    input.setAttribute("onclick", "checkout(event)");
+                    input.setAttribute("data-inv", `${na}`);
+                    td.appendChild(input);
+                });
+
+                const td1 = document.createElement("td");
+                td1.appendChild(ul);
+                const row = document.createElement("tr");
+                row.innerHTML = `<td>${it.title}</td><td>${it.rating}</td><td>${it.length}</td>`;
+                row.appendChild(td1);
+                row.appendChild(td);
+
+                tab.appendChild(row);    
+            });
+        } 
+        // when no results are returned
+        else {
+            //clear table
+            while (tab.firstChild) {
+                tab.removeChild(tab.firstChild);
+            }
+            const head = document.createElement("tr");
+            head.innerHTML = `<th>Title</th><th>Rating</th><th>Duration</th><th>Actors</th><th>Available Inventory</th>`;
+            head.classList.add('head');
+            tab.appendChild(head);
+
+            const no = document.createElement("tr");
+            no.innerHTML = `<td colspan="6" align="center">No Matching Titles.</td>`;
+            tab.appendChild(no);
+        }
+        
+    });
+
   e.preventDefault();
 });
 
-function search(ev){
-    console.log("Search entered.");
-    let data = $('form').serializeArray();
-    console.log(data);
+/* 
+-- CHECK-OUT FUNCTION --
+When the inventory button is clicked to checkout the movie.
+*/
+function checkout(ev){
+    console.log("Checkout selected");
+    const inv_id = ev.currentTarget.getAttribute('data-inv');
+    console.log(inv_id, cust_id, custName);
 
 }
 
+/* 
+-- RENT FUNCTION --
+When the rent button is clicked in the customer list. Just unhides stuff 
+and sets globals.
+*/
 function rent_selected(ev) {
     console.log("Rent Selected.");
     currSection = 4;
-    const cust_id = ev.currentTarget.getAttribute('data-cust-id');
-    const name = ev.currentTarget.getAttribute('data-name');
+    cust_id = ev.currentTarget.getAttribute('data-cust-id');
+    custName = ev.currentTarget.getAttribute('data-name');
 
-    let rentTitle= document.getElementById('rentTitle');
-    rentTitle.innerText = ("New Rental for Customer " + name);
+    let rentTitle= document.getElementById('searchTitle');
+    rentTitle.innerText = ("New Rental for Customer " + custName);
 
     let section2 = document.getElementById("section2");
     let section4= document.getElementById("section4");
     section2.classList.add('hideme');     
     section4.classList.remove('hideme');
 
-
 }
 
+/* 
+-- BACK FUNCTION --
+Function to make back button work.
+*/
 function back(ev) {
     if (currSection == 2){
         let section1 = document.getElementById("section1");
@@ -249,7 +349,6 @@ function back(ev) {
         currSection = 2;
     }
 }
-
 
 </script>
 

@@ -6,12 +6,8 @@ $db = new mysqli('cis.gvsu.edu', // hostname of db server
     $mysqlpassword, // your password
     $mydbname);
 
-session_start();
-
-
-if (isset($_GET['doSearch']) && !empty($_GET['tname'])) {
+if (!empty($_GET['tname'])) {
     $titleName = urldecode($_GET['tname']);
-    $custId = urldecode($_SESSION['cId']);
     $fTitle = urldecode($_GET['tname']);
 
     $rentalStr = <<<LAKER
@@ -22,7 +18,13 @@ LAKER;
     $i = 1;
     $flag = false;
     $result = $db->query($rentalStr);
+    $obNum = 0;
+    $jData;
+    $invArray;
+    $aktNameArray;
+
     while ($row = $result->fetch_assoc()) {
+
         $fid = $row['film_id'];
         $flag = true;
 
@@ -61,41 +63,23 @@ LAKER;
             }
         }
 
-        
-        // Print first three items
-        printf('<tr><td>%s</td><td>%s</td><td>%s</td>',
-        $row['title'], $row['rating'], $row['length']);
+        $jData->title = $row['title'];
+        $jData->rating = $row['rating'];
+        $jData->length = $row['length'];
+        $jData->aktArr = json_encode($aktNameArray);
+        $jData->invArr = json_encode($invArray);
+        $data[$obNum] = $jData;
+        $obNum++;
 
 
-        // Print Actor Names
-        printf('<td><ul>');
-        foreach($aktNameArray as $a){
-            printf('<li>%s</li>', $a);
-        }
-        printf('</ul></td>');
-
-        //For inventories
-        printf('<td>');
-
-        foreach($invArray as $i){
-            printf('<a href="rent.php?inv=%s&title=%s">%s</a>  ', $i, $row['title'], $i);
-        }
-        printf('</td></tr>');
-
+        unset($jData);
         unset($aktNameArray);
         unset($invArray);
+        unset($actArray);
         
     }
-    if (!$flag){
-        printf('<tr><td colspan="6" align="center">No Matching Titles.</td></tr>');
-    }
-} else {
-    printf('<tr><td colspan="6" align="center">No Matching Titles.</td></tr>');
-}
+} 
 
-printf('</table>');
-
+print json_encode($data);
 
 ?>
-</body>
-</html>
