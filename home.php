@@ -11,7 +11,7 @@ $db = new mysqli('cis.gvsu.edu', // hostname of db server
     $mydbname);
 
 	$mainQry = <<<LAKER
-		SELECT stor.store_id, staf.first_name, staf.last_name, a.address, c.city, co.country
+		SELECT stor.store_id, staf.first_name, staf.last_name, a.address, c.city, co.country, stor.manager_staff_id
 		FROM store stor, staff staf, address a, city c, country co
 		WHERE staf.staff_id = stor.manager_staff_id
 		AND stor.address_id = a.address_id

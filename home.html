@@ -6,7 +6,7 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
 </head>
 <body>
-<h1><a href="home.php" class="nav-link">MoviePlus Rental</a></h1>
+<h1><a href="home.html" class="nav-link">MoviePlus Rental</a></h1>
 
 <div id="section1">
     <table class="left" id="mainTable"> 
@@ -36,7 +36,7 @@
 
 <div id="section4" class="hideme">
     <input type="button" value="Back" onclick="back(event);">
-    <form>
+    <form id="searchForm">
             Search for Movie Title:
                 <input type="____" name="tname">
                 <input type="submit" name="doSearch" value="Search">
@@ -48,6 +48,17 @@
     </table>
 </div>
 
+
+<div id="section5" class="hideme">
+        <input type="button" value="Back" onclick="back(event);">
+        <h3 id="checkoutTitle">Check-out Movie:</h3>
+        <table id="checkoutTable">
+        </table>
+        <form id="checkoutForm">
+                <input type="submit" name="conf" value="Confirm">
+        </form>
+    </div>
+
 <script>
 
 //Global Variables
@@ -55,6 +66,8 @@ custList = "";
 currSection = 1;
 let cust_id = "";
 let custName = "";
+let manId = 0;
+let inv_id = "";
 
 
 /* 
@@ -67,7 +80,7 @@ fetch('https://cis.gvsu.edu/~waltojac/web-app-p5-JS/home.php')
     let tab = document.getElementById("mainTable");
     data.forEach ((it) => {
         const row = document.createElement("tr");
-        row.innerHTML = `<td><input type="button" value="Select" data-store-id="${it.store_id}" data-address="${it.address}" data-city="${it.city}" onclick="store_selected(event);"/></td><td>${it.first_name} ${it.last_name}</td><td>${it.address}, ${it.city}</td><td>${it.country}</td>`;
+        row.innerHTML = `<td><input type="button" value="Select" data-man-id="${it.manager_staff_id}" data-store-id="${it.store_id}" data-address="${it.address}" data-city="${it.city}" onclick="store_selected(event);"/></td><td>${it.first_name} ${it.last_name}</td><td>${it.address}, ${it.city}</td><td>${it.country}</td>`;
         tab.appendChild(row);
     });
   });
@@ -81,6 +94,8 @@ function store_selected(ev) {
     currSection = 2;
     const add = ev.currentTarget.getAttribute('data-address');
     const cit = ev.currentTarget.getAttribute('data-city');
+    manId = ev.currentTarget.getAttribute('data-man-id');
+
 
     let custT= document.getElementById('custTitle');
     custT.innerText = ("List of Customers at Store: " + add + ", " + cit);
@@ -220,7 +235,7 @@ function checkin_selected(ev){
 -- SEARCH FUNCTION --
 When the search form submit button is clicked.
 */
-document.querySelector('form').addEventListener('submit', (e) => {
+document.getElementById('searchForm').addEventListener('submit', (e) => {
   const formData = new FormData(e.target);
   console.log(formData.get('tname'));
   str = formData.get('tname');
@@ -261,6 +276,7 @@ document.querySelector('form').addEventListener('submit', (e) => {
                     input.value = na;
                     input.setAttribute("onclick", "checkout(event)");
                     input.setAttribute("data-inv", `${na}`);
+                    input.setAttribute("data-title", `${it.title}`);
                     td.appendChild(input);
                 });
 
@@ -301,10 +317,53 @@ When the inventory button is clicked to checkout the movie.
 */
 function checkout(ev){
     console.log("Checkout selected");
-    const inv_id = ev.currentTarget.getAttribute('data-inv');
-    console.log(inv_id, cust_id, custName);
+    let section4 = document.getElementById("section4");
+    let section5= document.getElementById("section5");
+    
+    section5.classList.remove('hideme');     
+    section4.classList.add('hideme');  
+    currSection = 5;
+    inv_id = ev.currentTarget.getAttribute('data-inv');
+    const title = ev.currentTarget.getAttribute('data-title');
+
+    let tab = document.getElementById('checkoutTable');
+
+    const c = document.createElement("tr");
+    const m = document.createElement("tr");
+    const i = document.createElement("tr");
+    
+    c.innerHTML = `<td>Customer</td><td>${custName}</td>`
+    m.innerHTML = `<td>Movie Title</td><td>${title}</td>`
+    i.innerHTML = `<td>Inventory ID</td><td>${inv_id}</td>`
+    tab.appendChild(c);
+    tab.appendChild(m);
+    tab.appendChild(i);
 
 }
+
+/* 
+-- CHECK-OUT FORM FUNCTION --
+When the search form submit button is clicked.
+*/
+document.getElementById('checkoutForm').addEventListener('submit', (e) => {
+  const formData = new FormData(e.target);
+  let tab = document.getElementById('searchTable');
+  e.preventDefault();   
+
+  fetch(`https://cis.gvsu.edu/~waltojac/web-app-p5-JS/rent.php?inv=${inv_id}&mId=${manId}&cId=${cust_id}`)
+    .then(res => res.json()
+    , (error) => console.log(`Error posting: ${error}`))
+    .then((data) => {
+        if (data.result == "success"){
+            console.log("Check in successful!");
+            let fo = document.getElementById('checkoutForm');
+            fo.classList.add("hideme");
+            window.alert("Check-out Successful!");
+        } else {
+            console.log("Failed to checkout.");
+        }
+    });
+});
 
 /* 
 -- RENT FUNCTION --
@@ -343,10 +402,20 @@ function back(ev) {
     if (currSection == 3 || currSection == 4){
         let section2 = document.getElementById("section2");
         let section3= document.getElementById("section3");
+        let section4= document.getElementById("section4");
         
         section2.classList.remove('hideme');     
-        section3.classList.add('hideme');       
+        section3.classList.add('hideme');   
+        section4.classList.add('hideme');       
         currSection = 2;
+    }
+    if (currSection == 5){
+        let section4 = document.getElementById("section4");
+        let section5= document.getElementById("section5");
+        
+        section4.classList.remove('hideme');     
+        section5.classList.add('hideme');       
+        currSection = 4;
     }
 }
 
